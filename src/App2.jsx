@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowMain(true);
-    }, 3000); // 3秒後に遷移
+    }, 3000); 
 
     return () => clearTimeout(timer);
   }, []);
