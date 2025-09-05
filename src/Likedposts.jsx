@@ -8,8 +8,9 @@ import ThreadView from "./ThreadView.jsx" ;
 export const LikedPosts = () => {
     const[selectedThread,setSelectedThread] = useState(null);
     const handleShowThread = (postId) =>{
-        const thread = getThreadByPostId(posts,postId);
-        setSelectedThread(thread);
+        setSelectedThread((prev)=>
+        prev && prev[0].id === postId ? null : getThreadByPostId(posts,postId)
+        );
     };
     return(
     <div>
