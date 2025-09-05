@@ -1,0 +1,23 @@
+.start-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #222;
+}
+
+.logo {
+  font-size: 3rem;
+  color: white;
+  transition: opacity 1s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.main-container {
+  padding: 2rem;
+  background-color: #f0f0f0;
+  height: 100vh;
+}
