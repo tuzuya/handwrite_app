@@ -1,7 +1,4 @@
-import React from "react";
-import { useState } from 'react'
-
-export const [posts]=useState([
+export const posts = [
         {id:101, authorId:1, text:"自分の投稿", liked:false, noteStyle:{
             color:"#ffeb3b",
             shape:"square",
@@ -76,4 +73,5 @@ export const [posts]=useState([
                 }}
             ]}
         ]}
-    ]);
+    ];
+export default posts;

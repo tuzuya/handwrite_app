@@ -1,52 +1,39 @@
 import React from "react";
-import {squarePosts} from 'Mypage.jsx';
-import {circlePosts} from 'Mypage.jsx';
-import {starPosts} from 'Mypage.jsx';
-import {heartPosts} from 'Mypage.jsx';
+import { posts } from './karidata.jsx';
+import { filterByShape,flattenReplies } from "./postUtils.jsx";
+
+const shapes = ["square", "circle", "star", "heart"];
 
 export const LikedPosts = () => {
-
-function likedPosts(items){
-    let result = [];
-    items.forEach(item => {
-        if(item.liked){
-            result.push(item);
-        }
-        let nextReplies = item.replies
-        while(nextReplies !== "[]"){
-            if(nextReplies.liked){
-                nextReplies.push(result)
-            };
-            let nextReplies = nextReplies.replies
-        }
-    })
-    return result;
-}
-const likedSquarePosts = likedPosts(squarePosts);
-const likedCirclePosts = likedPosts(circlePosts);
-const likedStarPosts = likedPosts(starPosts);
-const likedHeartPosts = likedPosts(heartPosts);
-
-return(
-
+    return(
     <div>
-        <header>マイページ</header>
         <h2>いいねした投稿・返信</h2>
-        <ul>
-            {likedSquarePosts.map(post => (
-                <li key={post.id}>{post.text}</li>
-            ))}
-            {likedCirclePosts.map(post => (
-                <li key={post.id}>{post.text}</li>
-            ))}
-            {likedStarPosts.map(post => (
-                <li key={post.id}>{post.text}</li>
-            ))}
-            {likedHeartPosts.map(post => (
-                <li key={post.id}>{post.text}</li>
-            ))}
-        </ul>
-    </div>
+        {shapes.map(shape => {
+            const shapePosts = filterByShape(posts,shape);
+            let relatedPosts=[];
 
-)
-}
+            shapePosts.forEach((post)=>{
+                const replies = flattenReplies(post);
+                const all= [post, ...replies];
+                const likedItems = all.filter((item) => item.liked);
+                relatedPosts.push(...likedItems);
+            });
+
+            return(
+                <div key={shape} className="stack">
+                    {relatedPosts
+                    .sort((a,b) => b.id - a.id)
+                    .map((post,index)=>(
+                        <div key={post.id} className="stack-item" style={{top: '${index * 10}px',zIndex: relatedPosts.length-index}}
+                        >
+                            <div className={'post-card ${shape}'}>{post.text}</div>
+                        </div>
+                    ))}
+                </div>
+            );
+        })}
+    </div>
+    );
+
+};
+export default LikedPosts

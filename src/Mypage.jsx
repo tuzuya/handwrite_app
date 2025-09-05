@@ -1,51 +1,28 @@
 import React from "react";
-import { posts } from './karidata.jsx'
+import { useState } from 'react';
+import MyPosts from "./Myposts.jsx";
+import LikedPosts from "./Likedposts.jsx";
+import YaritoriPosts from "./Yaritoriposts.jsx";
 
 
 export const MyPage = () => {
 
-//仮データ
-    const UserId =1;
+    const [activeTab, setActiveTab] = useState('MyPosts');
 
-//元の投稿のかたちで分ける
-const squarePosts =posts.filter(post => post.noteStyle.shape === "square");
-const circlePosts =posts.filter(post => post.noteStyle.shape === "circle");
-const starPosts =posts.filter(post => post.noteStyle.shape === "star");
-const heartPosts =posts.filter(post => post.noteStyle.shape === "heart");
-
-
-function myPosts(items){
-    let result = [];
-    if(item.authorId === UserId){
-        result.push(item);
-    }
-}
-const squareMyPosts = myPosts(squarePosts);
-const circleMyPosts = myPosts(circlePosts);
-const starMyPosts = myPosts(starPosts);
-const heartMyPosts = myPosts(heartPosts);
-
-return(<div>
+return(
+<div>
     <header>マイページ</header>
-    <h2>自分の投稿・返信</h2>
-    <ul>
-        {squareMyPosts.map(post => (
-            <li key={post.id}>{post.text}</li>
-        ))}
-        {circleMyPosts.map(post => (
-            <li key={post.id}>{post.text}</li>
-        ))}
-        {starMyPosts.map(post => (
-            <li key={post.id}>{post.text}</li>
-        ))}
-        {heartMyPosts.map(post => (
-            <li key={post.id}>{post.text}</li>
-        ))}
-    </ul>
-
+    <div className='tab-bar'>
+        <button onClick={()=>setActiveTab("MyPosts")}>自分の投稿</button>
+        <button onClick={()=>setActiveTab("LikedPosts")}>いいねした投稿</button>
+        <button onClick={()=>setActiveTab("YaritoriPosts")}>やりとりした投稿</button>
+    </div>
+    <div className='tab-content'>
+        {activeTab ==="MyPosts" && <MyPosts />}
+        {activeTab ==="LikedPosts" && <LikedPosts />}
+        {activeTab ==="YaritoriPosts" && <YaritoriPosts />}
+    </div>
 </div>
-
-)
-}
-
+);
+};
 export default MyPage;
