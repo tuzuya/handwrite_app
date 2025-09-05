@@ -15,7 +15,7 @@ const Splash = ({ onFinish }) => {
 
   return (
     <div className={`splash-container ${fadeOut ? 'fade-out' : ''}`}>
-      <img src="/react.svg" alt="Logo" className="logo" />
+      <img src="/tuduri-icon.png" alt="Logo" className="logo" />
     </div>
   );
 };
