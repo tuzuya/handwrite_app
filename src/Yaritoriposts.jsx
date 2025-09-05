@@ -3,7 +3,7 @@ import { posts } from './karidata.jsx';
 import { filterByShape,flattenReplies } from "./postUtils.jsx";
 
 const shapes = ["square", "circle", "star", "heart"];
-const UserId = 1;
+const userId = 1;
 
 export const YaritoriPosts = () => {
 
@@ -19,7 +19,7 @@ export const YaritoriPosts = () => {
             shapePosts.forEach((post)=>{
                 const replies = flattenReplies(post);
                 const all = [post, ...replies];
-                const involved = all.filter((item)=>item.authorId===UserId);
+                const involved = all.filter((item)=>item.authorId===userId);
                 relatedPosts.push( ...involved);
             });
             return(

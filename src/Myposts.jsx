@@ -3,14 +3,14 @@ import {posts} from './karidata.jsx';
 import { filterByShape , filterByAuthor } from "./postUtils.jsx";
 
 const shapes = ["square", "circle", "star", "heart"];
-const UserId = 1;
+const userId = 1;
 
 export const MyPosts = () => {
 
 return(<div>
     <h2>自分の投稿・返信</h2>
     {shapes.map(shape => {
-        const shapePosts = filterByAuthor(filterByShape(posts,shape),UserId);
+        const shapePosts = filterByAuthor(filterByShape(posts,shape),userId);
         return(
             <div key={shape} className="stack">
                 {shapePosts
