@@ -40,7 +40,7 @@ const App = () => {
   //ログインまたはサインアップ成功時
   const handleAuthSuccess = () => {
     setStep('splash');
-    setTimeout(() => setStep('wholescreen'), 2000);
+    setTimeout(() => { setStep('wholescreen'); setShowMain(true); }, 2000);
   };
   
   if (step === 'login') return (
@@ -74,13 +74,6 @@ const App = () => {
     setStep('mypage');
   };
 
-  //サインアップ成功時にロゴ画面に遷移させるための関数
-  const handleSignUpSuccess = () => {
-    setStep('splash');
-    setTimeout(() => setStep('wholescreen'), 2000); // 2秒後にwholescreenへ
-  };
-  if (step === 'signup') return <SignUp onSuccess={handleSignUpSuccess} />;
-  if (step === 'splash') return <Splash />;
 
   // メイン画面の表示
   if (!showMain) {
