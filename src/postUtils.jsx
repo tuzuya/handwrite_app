@@ -2,7 +2,6 @@ import React from "react";
 // import { userId } from './Mypage.jsx';
 import { supabase } from "./lib/supabase";
 import { posts } from './karidata.jsx';
-
 const user = supabase.auth.getUser();
 const userID = user?.id;
 //関数置き場

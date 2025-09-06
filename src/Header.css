@@ -6,7 +6,7 @@
   justify-content: space-between;
   height: 56px;
   padding: 0 24px;
-  background: #fff;
+  background: #45b196;
   border-bottom: 1px solid #eee;
   box-shadow: 0 2px 4px rgba(0,0,0,0.03);
 }
@@ -20,13 +20,19 @@
   letter-spacing: 0.05em;
   color: #333;
 }
+.header-buttons {
+  display:flex;
+  align-items:center;
+  margin-left: auto;
+  gap: 12px; /*ボタン間のスペース*/
+}
 
-.header-account {
+.header-account,
+.history-page {
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
-  margin-left: auto;
-  display: flex;
+  display:flex;
   align-items: center;
 }

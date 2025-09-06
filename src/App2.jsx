@@ -9,12 +9,13 @@ import Login from './Login';
 import MyPage from './Mypage';
 import Karidata from './karidata';
 import { supabase } from './lib/supabase';
-
+import YaritoriPosts from './Yaritoriposts';
 const App = () => {
   const [showMain, setShowMain] = useState(false);
   const [showNewCard, setShowNewCard] = useState(false);
   const [posts, setPosts] = useState([]);
   const [step, setStep] = useState("signup"); // サインアップのステップ管理
+  const [showHistory,setShowHistory]=useState(false);
 
   // 投稿一覧取得関数をApp2.jsxにまとめる
   const fetchPosts = async () => {
@@ -71,10 +72,21 @@ const App = () => {
   );
   
   const handleAccountClick = () => {
-  //マイページ遷移（別URLに遷移）
+    //マイページ遷移（別URLに遷移）
     setStep('mypage');
   };
+  const handleHistoryClick =()=>{
+    setShowHistory(true);
+  };
 
+
+  //サインアップ成功時にロゴ画面に遷移させるための関数
+  const handleSignUpSuccess = () => {
+    setStep('splash');
+    setTimeout(() => setStep('wholescreen'), 2000); // 2秒後にwholescreenへ
+  };
+  if (step === 'signup') return <SignUp onSuccess={handleSignUpSuccess} />;
+  if (step === 'splash') return <Splash />;
 
   // メイン画面の表示
   if (!showMain) {
@@ -85,16 +97,18 @@ const App = () => {
     return <NewCard onBack={() => setShowNewCard(false)} onPostComplete={fetchPosts} />;
   }
 
+  if(showHistory) return <YaritoriPosts onBack={()=>setShowHistory(false)}/>
+
   return (
     <>
-      <Header onAccountClick={handleAccountClick} />
+      <Header onAccountClick={handleAccountClick} onHistoryClick={handleHistoryClick} />
       {showMain ? (<Wholescreen 
         onNewCard={() => setShowNewCard(true)} 
         posts={posts}
         fetchPosts={fetchPosts}
         />
         ) : <Splash onFinish={() => setShowMain(true)} />}
-    </>
+</>
   );
 };
 
