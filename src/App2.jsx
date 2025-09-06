@@ -39,8 +39,9 @@ const App = () => {
 
   //ログインまたはサインアップ成功時
   const handleAuthSuccess = () => {
-    setStep('splash');
-    setTimeout(() => { setStep('wholescreen'); setShowMain(true); }, 2000);
+    // Show Splash again after auth and let Splash's onFinish handle timing
+    setStep('home');
+    setShowMain(false);
   };
   
   if (step === 'login') return (
