@@ -46,9 +46,9 @@ const App = () => {
   if (step === 'login') return (
     <>
       <Login onSuccess={handleAuthSuccess} />
-      <p className="text-center mt-4">
-        アカウントをお持ちでない方は{" "}
-        <button className="underline text-blue-600" onClick={() => setStep('signup')}>
+      <p className="auth-meta">
+        アカウントをお持ちでない方は{' '}
+        <button className="auth-link" onClick={() => setStep('signup')}>
           新規登録
         </button>
       </p>
@@ -57,9 +57,9 @@ const App = () => {
   if (step === 'signup') return (
     <>
       <SignUp onSuccess={handleAuthSuccess} />
-      <p className="text-center mt-4">
-        既にアカウントをお持ちの方は{" "}
-        <button className="underline text-blue-600" onClick={() => setStep('login')}>
+      <p className="auth-meta">
+        既にアカウントをお持ちの方は{' '}
+        <button className="auth-link" onClick={() => setStep('login')}>
           ログイン
         </button>
       </p>
