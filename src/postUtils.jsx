@@ -1,7 +1,7 @@
 import React from "react";
-import { userId } from './Mypage.jsx';
 import { posts } from './karidata.jsx';
 
+const userId = 1 ;
 export const shapes = ["square","circle","star","heart"]
 
 export const flattenReplies = (post) => {

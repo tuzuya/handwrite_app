@@ -5,6 +5,7 @@ import Wholescreen from './Wholescreen';
 import Header from './Header';
 import NewCard from './NewCard';
 import SignUp from './SignUp';
+import YaritoriPosts from './Yaritoriposts';
 
 const App = () => {
   const [showMain, setShowMain] = useState(false);
@@ -14,6 +15,11 @@ const App = () => {
     // 仮のマイページ遷移（例: 別URLに遷移）
     window.location.href = '/mypage'; // 後でcolabolateerがこのパスにページを作る想定
   };
+  const [showHistory,setShowHistory]=useState(false);
+  const handleHistoryClick =()=>{
+    setShowHistory(true);
+  };
+  
 
   //サインアップ成功時にロゴ画面に遷移させるための関数
   const handleSignUpSuccess = () => {
@@ -32,9 +38,11 @@ const App = () => {
     return <NewCard onBack={() => setShowNewCard(false)} />;
   }
 
+  if(showHistory) return <YaritoriPosts onBack={()=>setShowHistory(false)}/>
+
   return (
     <>
-      <Header onAccountClick={handleAccountClick} />
+      <Header onAccountClick={handleAccountClick} onHistoryClick={handleHistoryClick} />
       {showMain ? (<Wholescreen onNewCard={() => setShowNewCard(true)} />) : <Splash onFinish={() => setShowMain(true)} />}
       <Card
         title="React Card"
