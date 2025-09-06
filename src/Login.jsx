@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from './lib/supabase';
-import './SignUp.css';
+import './Login.css';
+
 
 export default function Login({ onSuccess }) {
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ export default function Login({ onSuccess }) {
   };
 
   return (
-    <div className="auth-wrapper">
+    <div className="login-container">
       <div className="auth-card">
         <h1 className="auth-heading">ログイン</h1>
         <form className="auth-form" onSubmit={handleLogin}>

@@ -1,20 +1,32 @@
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: block; /* ← flexを解除 */
+}
 .splash-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   height: 100vh;
   background-color: #fff;
   transition: opacity 1s ease;
   opacity: 1;
 }
-
+.splash-logo {
+  max-width: 80vw;
+  max-height: 40vh;
+}
 .splash-container.fade-out {
   opacity: 0;
 }
 
 .logo {
-  width: 200px;
-  height: auto;
+  max-width: 80vw;
+  max-height: 40vh;
 }
 
 :root {

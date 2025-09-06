@@ -19,9 +19,9 @@ export default function SignUp({ onSuccess }) {
   };
 
   return (
-    <div className="signup-container auth-wrapper">
+    <div className="signup-container">
       <div className="auth-card">
-        <h1 className="signup-title auth-heading">アカウント作成・ログイン</h1>
+        <h1 className="signup-title auth-heading">アカウント作成</h1>
         <form className="auth-form" onSubmit={handleSignUp}>
         <input
           className="auth-input"
