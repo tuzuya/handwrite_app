@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Splash from './Splash';
 import Card from "./Card";
 import Wholescreen from './Wholescreen';
@@ -8,11 +8,34 @@ import SignUp from './SignUp';
 import Login from './Login';
 import MyPage from './Mypage';
 import Karidata from './karidata';
+import { supabase } from './lib/supabase';
 
 const App = () => {
   const [showMain, setShowMain] = useState(false);
   const [showNewCard, setShowNewCard] = useState(false);
+  const [posts, setPosts] = useState([]);
   const [step, setStep] = useState("signup"); // サインアップのステップ管理
+
+  // 投稿一覧取得関数をApp2.jsxにまとめる
+  const fetchPosts = async () => {
+    const { data, error } = await supabase
+      .from('posts')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (!error) setPosts(data);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+    const fetchUser = async () => {
+    const { data } = await supabase.auth.getUser();
+    console.log('ユーザーID:', data?.user?.id);
+    // 必要ならメールアドレスも
+    console.log('メール:', data?.user?.email);
+    };
+    fetchUser();
+  }, []);
+
 
   //ログインまたはサインアップ成功時
   const handleAuthSuccess = () => {
@@ -65,19 +88,18 @@ const App = () => {
   }
   // 新規カード作成画面の表示
   if (showNewCard) {
-    return <NewCard onBack={() => setShowNewCard(false)} />;
+    return <NewCard onBack={() => setShowNewCard(false)} onPostComplete={fetchPosts} />;
   }
 
   return (
     <>
       <Header onAccountClick={handleAccountClick} />
-      {showMain ? (<Wholescreen onNewCard={() => setShowNewCard(true)} />) : <Splash onFinish={() => setShowMain(true)} />}
-      <Card
-        title="React Card"
-        image="https://via.placeholder.com/300x200"
-        description="This is a customizable card component."
-        buttonText="Learn More"
-      />
+      {showMain ? (<Wholescreen 
+        onNewCard={() => setShowNewCard(true)} 
+        posts={posts}
+        fetchPosts={fetchPosts}
+        />
+        ) : <Splash onFinish={() => setShowMain(true)} />}
     </>
   );
 };

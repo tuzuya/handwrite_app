@@ -1,47 +1,49 @@
-.card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 300px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-.card-image {
-  width: 100%;
+.card-custom {
+  position: relative;
+  width: 200px;s
   height: 200px;
-  object-fit: cover;
+  margin: 16px;
+  display: inline-block;
 }
-
-.card-content {
+.card-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.card-desc-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
   padding: 16px;
+  pointer-events: none;
+  word-break: break-all;
+  box-sizing: border-box;
 }
-
-.card-title {
-  font-size: 1.5em;
-  margin-bottom: 8px;
-}
-
 .card-description {
-  font-size: 1em;
-  color: #555;
-  margin-bottom: 16px;
-}
-
-.card-button {
-  padding: 10px 20px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1em;
-}
-
-.card-button:hover {
-  background-color: #0056b3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;      /* 垂直中央揃え */
+  justify-content: center;  /* 水平中央揃え */
+  color: #222;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 16px;
+  pointer-events: none;
+  word-break: break-all;
+  box-sizing: border-box;
 }

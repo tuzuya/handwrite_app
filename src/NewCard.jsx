@@ -85,6 +85,9 @@ const NewCard = ({ onBack, onPostComplete }) => {
         image_width,
         image_height,
         description,
+        shape: selectedShape.name,
+        color,
+        thickness,
         created_at: new Date().toISOString(),
       });
       if (dbErr) {
@@ -100,6 +103,9 @@ const NewCard = ({ onBack, onPostComplete }) => {
         image_width: null,
         image_height: null,
         description,
+        shape: selectedShape.name,
+        color,
+        thickness,
         created_at: new Date().toISOString(),
       });
       if (dbErr) {
