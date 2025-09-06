@@ -1,13 +1,24 @@
 import React from "react";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MyPosts from "./Myposts.jsx";
 import LikedPosts from "./Likedposts.jsx";
 import YaritoriPosts from "./Yaritoriposts.jsx";
+import { supabase } from './lib/supabase';
 
 
-export const MyPage = () => {
-
+export const MyPage = ({ onBack }) => {
+    const [userId, setUserId] = useState(null);
     const [activeTab, setActiveTab] = useState('MyPosts');
+
+    useEffect(() => {
+        const getUser = async () => {
+            const { data } = await supabase.auth.getUser();
+            setUserId(data?.user?.id || null);
+        };
+    getUser();
+    }, []);
+
+if (!userId) return <div>Loading...</div>;
 
 return(
 <div>
@@ -22,6 +33,7 @@ return(
         {activeTab ==="LikedPosts" && <LikedPosts />}
         {activeTab ==="YaritoriPosts" && <YaritoriPosts />}
     </div>
+    <button onClick={onBack}>戻る</button>
 </div>
 );
 };

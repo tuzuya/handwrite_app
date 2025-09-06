@@ -6,6 +6,8 @@ import Header from './Header';
 import NewCard from './NewCard';
 import SignUp from './SignUp';
 import Login from './Login';
+import MyPage from './Mypage';
+import Karidata from './karidata';
 
 const App = () => {
   const [showMain, setShowMain] = useState(false);
@@ -40,10 +42,13 @@ const App = () => {
       </p>
     </>
   );
+  if (step === 'mypage') return (
+    <MyPage onBack={() => setStep('wholescreen')} />
+  );
   
   const handleAccountClick = () => {
-    // 仮のマイページ遷移（例: 別URLに遷移）
-    window.location.href = '/mypage'; // 後でcolabolateerがこのパスにページを作る想定
+  //マイページ遷移（別URLに遷移）
+    setStep('mypage');
   };
 
   //サインアップ成功時にロゴ画面に遷移させるための関数

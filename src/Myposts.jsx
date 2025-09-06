@@ -1,14 +1,15 @@
 import React from "react";
 import { useState } from "react";
-import {posts} from './karidata.jsx';
-import { filterByShape , filterByAuthor,getThreadByPostId,shapes } from "./postUtils.jsx";
-import PostStack from './PostStack.jsx';
-import ThreadView from './ThreadView.jsx';
+import {posts} from './karidata';
+import { filterByShape , filterByAuthor,getThreadByPostId,shapes } from "./postUtils";
+import PostStack from './PostStack';
+import ThreadView from './ThreadView';
 
 const userId = 1;
 
-export const MyPosts = () => {
-
+//ここは修正が必要かもしれない
+export const MyPosts = ({ userId }) => {
+    const myPosts = filterByAuthor(posts,userId);
     const[selectedThread,setSelectedThread] = useState(null);
     const handleShowThread = (postId) =>{
         setSelectedThread((prev)=>

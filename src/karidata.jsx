@@ -1,6 +1,6 @@
 export const posts = [
         {id:101, authorId:1, title:"101",description:"自分の投稿", image:"/default.png" ,liked:false, noteStyle:{
-            color:"#f8c4dd",
+            color:"rgba(248, 196, 221, 1)",
             shape:"square",
             strokeColor: "#000",
             strokeWidth: 2,

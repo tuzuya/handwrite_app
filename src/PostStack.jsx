@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import Card from "./Card.jsx"
 import { RiEyeCloseFill } from "react-icons/ri";
+import Karidata from "./karidata.jsx";
+
 const PostStack = ({ posts, shape, onDetail}) => {
     const [ currentIndex, setCurrentIndex ] = useState(0);
     const [ touchStartY, setTouchStartY ] = useState(null);
