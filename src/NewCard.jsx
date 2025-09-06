@@ -7,6 +7,7 @@ import card2 from './assets/fusen_heart.png';
 import card3 from './assets/fusen_square.png';
 import card4 from './assets/fusen_star.png';
 import Card from './Card';
+import './NewCard.css';
 // npm install react-signature-canvas
 import SignatureCanvas from 'react-signature-canvas';
 
@@ -18,6 +19,13 @@ const CARD_SHAPES = [
   { img: card4, name: 'star' },
 ];
 const COLORS = ['#000', '#e53e3e', '#3182ce', '#38a169'];
+const COLOR_CLASSES = {
+  '#000': 'color-black',
+  '#e53e3e': 'color-red',
+  '#3182ce': 'color-blue',
+  '#38a169': 'color-green',
+};
+const THICKNESS_CLASSES = { 2: 'thick-2', 4: 'thick-4', 8: 'thick-8', 12: 'thick-12' };
 const THICKNESS = [2, 4, 8, 12];
 
 // タッチデバイスかどうかを判定する関数
@@ -162,86 +170,75 @@ const NewCard = ({ onBack, onPostComplete }) => {
   };
 
   return (
-    <div style={{ padding: 24 }}>
-      <h2>新規カード作成</h2>
-      {/* 形・色・太さの選択UIは省略（必要なら追加） */}
-      <div>
-  {/* 枠の形選択 */}
-  <div>
-    {CARD_SHAPES.map(shape => (
-      <button
-        key={shape.name}
-        onClick={() => setSelectedShape(shape)}
-        style={{
-          border: selectedShape.name === shape.name ? '2px solid #3182ce' : '1px solid #ccc',
-          margin: 4,
-          background: 'none'
-        }}
-      >
-        <img src={shape.img} alt={shape.name} width={32} height={32} />
-      </button>
-    ))}
-  </div>
-  {/* 色選択 */}
-  <div>
-    {COLORS.map(c => (
-      <button
-        key={c}
-        onClick={() => setColor(c)}
-        style={{
-          background: c,
-          border: color === c ? '2px solid #3182ce' : '1px solid #ccc',
-          width: 24,
-          height: 24,
-          borderRadius: '50%',
-          margin: 4
-        }}
-      />
-    ))}
-  </div>
-  {/* 太さ選択 */}
-  <div>
-    {THICKNESS.map(t => (
-      <button
-        key={t}
-        onClick={() => setThickness(t)}
-        style={{
-          border: thickness === t ? '2px solid #3182ce' : '1px solid #ccc',
-          margin: 4,
-          padding: 4
-        }}
-      >
-        <div style={{
-          width: 24,
-          height: t,
-          background: color,
-          margin: '0 auto'
-        }} />
-      </button>
-    ))}
-  </div>
-</div>
-      {isTouchDevice() ? (
-        <SignatureCanvas
-          ref={sigPad}
-          penColor={color}
-          minWidth={thickness}
-          maxWidth={thickness}
-          canvasProps={{ width: 300, height: 150, className: 'sigCanvas' }}
-        />
-      ) : (
-        <textarea
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-          placeholder="ここに投稿を入力"
-          rows={6}
-          style={{ width: 300 }}
-        />
-      )}
-      <br />
-      <button onClick={handleSave}>ローカル保存</button>
-      <button onClick={handleSaveToSupabase}>Supabaseに保存</button>
-      <button onClick={onBack}>戻る</button>
+    <div className="newcard-wrapper">
+      <div className="newcard-card">
+        <h2 className="newcard-heading">新規カード作成</h2>
+
+        <div className="newcard-toolbar">
+          <div className="newcard-group" aria-label="枠の形選択">
+            {CARD_SHAPES.map(shape => (
+              <button
+                key={shape.name}
+                onClick={() => setSelectedShape(shape)}
+                className={`newcard-shape-btn ${selectedShape.name === shape.name ? 'is-selected' : ''}`}
+                aria-pressed={selectedShape.name === shape.name}
+              >
+                <img src={shape.img} alt={shape.name} className="newcard-shape-img" />
+              </button>
+            ))}
+          </div>
+
+          <div className="newcard-group" aria-label="色選択">
+            {COLORS.map(c => (
+              <button
+                key={c}
+                onClick={() => setColor(c)}
+                className={`newcard-color-btn ${COLOR_CLASSES[c]} ${color === c ? 'is-selected' : ''}`}
+                aria-pressed={color === c}
+              />
+            ))}
+          </div>
+
+          <div className={`newcard-group ${COLOR_CLASSES[color]}`} aria-label="太さ選択">
+            {THICKNESS.map(t => (
+              <button
+                key={t}
+                onClick={() => setThickness(t)}
+                className={`newcard-thickness-btn ${thickness === t ? 'is-selected' : ''}`}
+                aria-pressed={thickness === t}
+              >
+                <div className={`newcard-thickness-bar ${THICKNESS_CLASSES[t]}`} />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="newcard-canvas-area">
+          {isTouchDevice() ? (
+            <SignatureCanvas
+              ref={sigPad}
+              penColor={color}
+              minWidth={thickness}
+              maxWidth={thickness}
+              canvasProps={{ className: 'newcard-canvas', width: 320, height: 160 }}
+            />
+          ) : (
+            <textarea
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              placeholder="ここに投稿を入力"
+              rows={6}
+              className="newcard-textarea"
+            />
+          )}
+        </div>
+
+        <div className="newcard-actions">
+          <button className="newcard-btn btn-secondary" onClick={handleSave}>ローカル保存</button>
+          <button className="newcard-btn btn-primary" onClick={handleSaveToSupabase}>保存</button>
+          <button className="newcard-btn btn-ghost" onClick={onBack}>戻る</button>
+        </div>
+      </div>
     </div>
   );
 };
