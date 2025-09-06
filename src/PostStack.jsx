@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import Card from "./Card.jsx"
 import { RiEyeCloseFill } from "react-icons/ri";
 const PostStack = ({ posts, shape, onDetail}) => {
     const [ currentIndex, setCurrentIndex ] = useState(0);
@@ -33,10 +34,18 @@ const PostStack = ({ posts, shape, onDetail}) => {
             className="stack-item"
             style={{zIndex:posts.length-currentIndex}}
             >
-                <div className={'post-card ${shape}'}>
-                    {post.text}
-                    <button onClick={()=> onDetail(post.id)}>詳細をみる</button>
-                </div>
+                <Card 
+                title={post.title || '投稿 ${post.id}'}
+                image={post.image || "/default.png"}
+                description={post.description}
+                buttonText={post.buttonText}
+                />
+                <button 
+                className="detail-button" 
+                onClick={()=> onDetail(post.id)}
+                >
+                    詳細をみる
+                </button>
             </div>
         </div>
     );
