@@ -96,4 +96,27 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+
+  .splash-container {
+  position: fixed;
+  inset: 0; /* top, right, bottom, left を全部0に */
+  display: flex;
+  justify-content: center; /* 横方向の中央揃え */
+  align-items: center;     /* 縦方向の中央揃え */
+  background: #fff;        /* 背景色（必要に応じて変更） */
+  opacity: 1;
+  transition: opacity 1s ease;
+  z-index: 50;
+}
+
+.splash-container.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.logo {
+  width: 200px;   /* お好みのサイズに調整 */
+  height: auto;
+}
+
 }
