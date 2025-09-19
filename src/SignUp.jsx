@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from './lib/supabase';
+import './SignUp.css';
 
 export default function SignUp({ onSuccess }) {
   const [email, setEmail] = useState('');
@@ -18,11 +19,12 @@ export default function SignUp({ onSuccess }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl mb-4">アカウント作成</h1>
-      <form className="flex flex-col gap-2 w-72" onSubmit={handleSignUp}>
+    <div className="signup-container">
+      <div className="auth-card">
+        <h1 className="signup-title auth-heading">アカウント作成</h1>
+        <form className="auth-form" onSubmit={handleSignUp}>
         <input
-          className="border p-2 rounded"
+          className="auth-input"
           type="email"
           placeholder="メールアドレス"
           value={email}
@@ -30,18 +32,19 @@ export default function SignUp({ onSuccess }) {
           required
         />
         <input
-          className="border p-2 rounded"
+          className="auth-input"
           type="password"
           placeholder="パスワード"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
         />
-        <button className="bg-blue-600 text-white rounded py-2" type="submit">
+        <button className="auth-button" type="submit">
           登録
         </button>
-        {error && <p className="text-red-600">{error}</p>}
       </form>
+        {error && <p className="auth-error">{error}</p>}
+      </div>
     </div>
   );
 }
