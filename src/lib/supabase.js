@@ -1,6 +1,12 @@
 import { createClient } from '@supabase/supabase-js'
 
-   const supabaseUrl = 'https://zfwprzfqdcvmnwqmdvdj.supabase.co'  // 先ほど控えたProject URLを貼り付け
-   const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpmd3ByemZxZGN2bW53cW1kdmRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NzYwMTYsImV4cCI6MjA3MjU1MjAxNn0.F-1FUs0dBKjjU8dfWgToXiH1FBFL37PLs42LjyW7zH4'  // 先ほど控えたanon public keyを貼り付け
+// 接続先は環境変数から読む（.env.example をコピーして .env を作る）。
+// anon key はブラウザに配る前提の公開キーなので VITE_ で公開してよい。データの保護は Supabase 側の RLS が担う
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('VITE_SUPABASE_URL と VITE_SUPABASE_ANON_KEY を .env に設定してください')
+}
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
